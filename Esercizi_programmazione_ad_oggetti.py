@@ -305,7 +305,7 @@ menu() """
 · Variabile di istanza modello
 Crea due automobili con modelli diversi e stampa il numero di ruote e i modelli """
 
-class Automobile:
+""" class Automobile:
     ruote= 4
     
     def __init__(self, modello):
@@ -318,4 +318,69 @@ auto1=Automobile("Panda")
 auto2=Automobile("Tipo")
 
 print(auto1)
-print(auto2)
+print(auto2) """
+
+""" Crea una classe ContoBancario con:
+· Attributo privato __saldo
+· Metodo deposita(importo) che aggiunge soldi solo se > 0
+· Metodo preleva(importo) che riduce il saldo solo se sufficiente
+Simula alcune operazioni di deposito e prelievo """
+
+""" class ContoBancario:
+    def __init__(self, saldo):
+        self.__saldo= saldo
+        
+    def get_saldo(self):
+        return self.__saldo
+    
+    def __str__(self):
+        return f"{self.__saldo}"
+  
+    def deposita(self, importo):
+        if importo>0:
+            self.__saldo+=importo
+            print("Operazione effettuata!")
+        else:
+            print("Devi inserire un importo di deposito positivo e maggiore di 0")
+    
+    def prelievo(self, importo):
+        if importo>0 and self.__saldo>=importo:
+            self.__saldo-=importo
+            print("Operazione effettuata!")
+        elif importo<=0:
+            print("Devi inserire un importo di prelievo positivo e maggiore di 0")
+        elif self.__saldo < importo:
+            print(f"Non hai disponibilità sufficente, il tuo saldo è {self.get_saldo()}. \n"
+                   "Ripetere con un altro importo")
+        else:
+            print("Hai eseguito un operazione non valida, verifica i dati")
+            
+def menu():
+    print("**************** Banca v 1.0.0 **************")
+    
+    print("Benvenuto! Apri il tuo conto bancario ora! \n")
+    somma=int(input("Quanto denaro vuoi inserire?"))
+    conto=ContoBancario(somma)
+    while True:
+        scelta = int(input("Quale operazione vuoi fare? \n"
+              "1. per verificare il saldo \n"
+              "2. per effettuare prelievo \n"
+              "3. per effettuare un versamento \n"
+              "0. per uscire dal programma \n"))
+        
+        if scelta==1:
+            print(conto)
+            conto.get_saldo()
+        elif scelta==2:
+            importo=int(input("Quanto vuoi prelevare? \n"))
+            conto.prelievo(importo)
+        elif scelta==3:
+            importo=int(input("Quanto vuoi versare? \n"))
+            conto.deposita(importo)
+        elif scelta==0:
+            print("Uscita, a presto!")
+            break
+        else:
+            print("Inserisci una scelta valida!")
+            
+menu() """
