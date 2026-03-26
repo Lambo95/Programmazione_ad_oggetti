@@ -299,3 +299,23 @@ def menu():
 
 # Avvio del programma
 menu() """
+
+""" Crea una classe Automobile con:
+· Variabile di classe ruote = 4
+· Variabile di istanza modello
+Crea due automobili con modelli diversi e stampa il numero di ruote e i modelli """
+
+class Automobile:
+    ruote= 4
+    
+    def __init__(self, modello):
+        self.modello=modello
+        
+    def __str__(self):
+        return f"Modello: {self.modello}, ruote: {self.ruote}"
+    
+auto1=Automobile("Panda")
+auto2=Automobile("Tipo")
+
+print(auto1)
+print(auto2)
