@@ -384,3 +384,36 @@ def menu():
             print("Inserisci una scelta valida!")
             
 menu() """
+
+""" Crea una classe Animale con attributo nome e metodo verso().
+Poi crea due classi derivate:
+· Cane > verso() stampa "Bau"
+· Gatto > verso() stampa "Miao"
+Crea un oggetto di ciascuna classe e chiama il metodo verso().
+Questo esercizio mostra chiaramente come ereditare e sovrascrivere i metodi. """
+
+class Animale:
+    def __init__(self, nome):
+        self.nome= nome
+    
+    def __str__(self):
+        return f"Sono un {self.nome}"
+    def verso(self, suono):
+        print(f"Sono un {self.nome} e faccio {suono}") 
+
+class Cane(Animale):
+    pass
+        
+   
+    
+class Gatto(Animale):
+    pass
+        
+   
+cane= Cane("Cane")
+gatto=Gatto("Micio")
+
+cane.verso("Bau")
+gatto.verso("Miao")
+
+        
