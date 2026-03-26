@@ -403,13 +403,10 @@ class Animale:
 
 class Cane(Animale):
     pass
-        
-   
     
 class Gatto(Animale):
     pass
-        
-   
+ 
 cane= Cane("Cane")
 gatto=Gatto("Micio")
 
