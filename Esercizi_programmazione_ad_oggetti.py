@@ -420,7 +420,7 @@ Crea due classi derivate:
 Crea una lista di forme e stampa l'area di ciascuna usando lo
 stesso metodo area(). """
 
-class Forma:
+""" class Forma:
     def __init__(self):
         pass
     
@@ -444,4 +444,77 @@ c1=Cerchio
 
 print(r1.area(10,2))
 print(c1.area(25))
+         """
+         
+         
+""" Crea una classe astratta Veicolo con metodo astratto muovi().
+Poi crea due classi concrete:
+· Auto > muovi() stampa "L'auto si muove su strada"
+· Aereo > muovi() stampa "L'aereo vola nel cielo"
+Infine, scrivi una funzione che accetti un generico Veicolo e chiami muovi() """
+
+""" from abc import ABC, abstractmethod 
+
+class Veicolo(ABC):
+    def muovi():
+        pass
+class Auto(Veicolo):
+    def __init__(self):
+        super().__init__()
+    
+    def muovi():
+        print("L'auto si muove su strada")
+class Aereo(Veicolo):
+    def __init__(self):
+        super().__init__()
+    
+    def muovi():
+        print("L'aereo vola nel cielo")
+        
+def muovi_veicolo(Veicolo):
+    Veicolo.muovi()
+    
+muovi_veicolo(Aereo)
+muovi_veicolo(Auto) """
+
+
+
+""" Crea una classe Studente che abbia:
+. @classmethod per creare uno studente a partire da una stringa tipo "Luca-20-Matematica"
+· @property per calcolare automaticamente l'anno di nascita a partire dall'età 
+· @property con setter per impedire età negative """
+
+from datetime import datetime
+
+class Studente:
+    def __init__(self, nome, eta, corso):
+        self.nome = nome
+        self._eta = eta
+        self.corso = corso
+
+    @classmethod
+    def da_str(cls, stringa):
+        nome, eta, corso = stringa.split("-")
+        return cls(nome, int(eta), corso)
+
+    @property
+    def calcolo_anno(self):
+        return datetime.now().year - self._eta
+
+    @property
+    def eta(self):
+        return self._eta
+
+    @eta.setter
+    def eta(self, nuova_eta):
+        if nuova_eta > 6:
+            self._eta = nuova_eta
+        else:
+            print("Età non valida per uno studente")
+
+
+s = Studente.da_str("Luca-20-Matematica")
+print(s.calcolo_anno)
+
+
         
