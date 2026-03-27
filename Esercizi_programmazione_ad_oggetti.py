@@ -392,7 +392,7 @@ Poi crea due classi derivate:
 Crea un oggetto di ciascuna classe e chiama il metodo verso().
 Questo esercizio mostra chiaramente come ereditare e sovrascrivere i metodi. """
 
-class Animale:
+""" class Animale:
     def __init__(self, nome):
         self.nome= nome
     
@@ -411,6 +411,37 @@ cane= Cane("Cane")
 gatto=Gatto("Micio")
 
 cane.verso("Bau")
-gatto.verso("Miao")
+gatto.verso("Miao") """
 
+""" Crea una classe base Forma con metodo area().
+Crea due classi derivate:
+. Rettangolo > area = base * altezza
+· Cerchio > area = Tt * r2
+Crea una lista di forme e stampa l'area di ciascuna usando lo
+stesso metodo area(). """
+
+class Forma:
+    def __init__(self):
+        pass
+    
+    def area():
+        pass
+class Rettangolo(Forma):
+    def __init__(self):
+        super().__init__()
+    
+    def area(base, altezza):
+        return base*altezza
+
+class Cerchio(Forma):
+    def __init__(self):
+        super().__init__()
+    def area(r2):
+        return (3.14*r2)
+
+r1=Rettangolo
+c1=Cerchio
+
+print(r1.area(10,2))
+print(c1.area(25))
         
