@@ -484,7 +484,7 @@ muovi_veicolo(Auto) """
 · @property per calcolare automaticamente l'anno di nascita a partire dall'età 
 · @property con setter per impedire età negative """
 
-from datetime import datetime
+""" from datetime import datetime
 
 class Studente:
     def __init__(self, nome, eta, corso):
@@ -514,7 +514,53 @@ class Studente:
 
 
 s = Studente.da_str("Luca-20-Matematica")
-print(s.calcolo_anno)
+print(s.calcolo_anno) """
 
+""" Crea una classe Frazione che rappresenti una frazione con numeratore e denominatore.
+Implementa i seguenti operatori:
+· + (somma tra frazioni)
+· == (uguaglianza tra frazioni, semplificando i valori)
+._ str_ per stampare la frazione come "3/4" """
 
+""" from math import gcd
+
+def mcm(a, b):
+    """Calcola il minimo comune multiplo di due numeri."""
+    return abs(a * b) // gcd(a, b)
+class Frazione:
+    def __init__(self, numeratore, denominatore):
+        self.numeratore = numeratore
+        self.denominatore = denominatore
         
+    def __add__(self, altro_num, altro_den):
+        if self.denominatore == altro_den:
+            self.numeratore+=altro_num
+        else:
+            self.denominatore=mcm(self.denominatore,altro_den)
+            self.numeratore=(self.numeratore*mcm(self.denominatore,altro_den)) + (altro_num*mcm(self.denominatore,altro_den)) 
+            
+    def __eq__(self, altro_num, altro_den):
+        if self.denominatore == altro_den and self.numeratore == altro_num:
+            return True
+        else:
+            n_mcm= mcm(self.denominatore,altro_den)
+            nuovo_num_1 = self.numeratore / n_mcm
+            nuovo_num_2 = altro_num / n_mcm
+            nuovo_den_1 = self.denominatore / n_mcm
+            nuovo_den_2 = altro_den / n_mcm
+            if nuovo_num_1 == nuovo_num_2 and nuovo_den_1 == nuovo_den_2:
+                return True
+            else:
+                return False
+            
+    def __str__(self):
+        return f"{self.numeratore}/{self.denominatore}"
+    
+f1=Frazione(2,4)
+f2=Frazione(1,2)
+print(f1)
+print(f1+f2)
+print(f1==f2)
+ """
+ 
+ 
