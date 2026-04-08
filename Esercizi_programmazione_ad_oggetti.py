@@ -525,7 +525,7 @@ Implementa i seguenti operatori:
 """ from math import gcd
 
 def mcm(a, b):
-    """Calcola il minimo comune multiplo di due numeri."""
+    #Calcola il minimo comune multiplo di due numeri.
     return abs(a * b) // gcd(a, b)
 class Frazione:
     def __init__(self, numeratore, denominatore):
@@ -562,5 +562,70 @@ print(f1)
 print(f1+f2)
 print(f1==f2)
  """
- 
+""" from abc import ABC, abstractmethod 
+class ContoBancario(ABC):
+    def __init__(self, intestatario, saldo):
+        self._saldo= saldo
+        self._intestatario = intestatario
+        
+   
+    @property
+    def get_saldo(self):
+        return self._saldo
+    
+    def __str__(self):
+        return f"Conto di {self._intestatario} - Saldo: {self._saldo:.2f}$"
+  
+    @staticmethod
+    def valida_importo(importo):
+        if importo>0:
+           return importo
+        else:
+           print("Devi inserire un importo di deposito positivo e maggiore di 0")
+    
+    @abstractmethod
+    def deposita(self, importo):
+        pass
+
+    def prelievo(self, importo):
+        pass
+
+class ContoCorrente(ContoBancario):    
+    COMMISSIONE = 1.5  
+    def deposita(self, importo):
+        if self.valida_importo(importo):
+            self._saldo+=importo
+            print("Operazione effettuata!")
+        else:
+            print("Importo non valido per il deposito!")
+    
+    
+    def prelievo(self, importo):
+        totale = importo + ContoCorrente.COMMISSIONE
+        if self.valida_importo(importo) and self._saldo >= totale:
+            self._saldo -= totale
+            print("Operazione effettuata!")
+        elif self._saldo < importo:
+            print(f"Non hai disponibilità sufficente, il tuo saldo è {self.get_saldo()}. \n"
+                   "Ripetere con un altro importo")
+        else:
+            print("Hai eseguito un operazione non valida, verifica i dati")
+        
+    def __add__(self, altro):
+           nuovo_saldo = self._saldo + altro._saldo
+           return ContoCorrente(f"{self._intestatario} & {altro._intestatario}", nuovo_saldo)
+            
+if __name__ == "__main__":
+    cc1 = ContoCorrente("Luca", 1000)
+    cc2 = ContoCorrente("Giulia", 500)
+    
+
+# Operazioni di base
+cc1.deposita(200)
+cc1.prelievo(50)
+print(cc1)
+
+# Fusione conti
+conto_fuso = cc1 + cc2
+print(conto_fuso) """
  
