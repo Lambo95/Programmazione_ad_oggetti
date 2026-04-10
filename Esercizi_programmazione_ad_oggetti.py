@@ -710,3 +710,110 @@ print("\n=== Combinazione con + ===")
 somma = rett + cerchio
 print(somma)
          """
+         
+""" L'esercizio richiede di creare due classi:
+
+Product: deve includere il nome e il prezzo, oltre a metodi speciali per la stampa e il confronto.
+ShoppingCart: deve permettere di aggiungere/rimuovere prodotti, calcolare il totale e stampare il contenuto. 
+Viene richiesto di implementare l'overloading degli operatori come la somma per unire i carrelli. """
+
+""" Classe Product
+I prodotti vengono istanziati e aggiunti a due carrelli.
+Metodi speciali:
+__str__: Rappresentazione leggibile del prodotto.
+__eq__: Confronto tra prodotti per nome e prezzo. """
+
+class Prodotto():
+    def __init__(self, articolo, prezzo):
+        self.articolo = articolo
+        self.prezzo = prezzo
+    
+    def __str__(self):
+        return f"{self.articolo} : {self.prezzo}"
+    
+    def __repr__(self):
+        return self.__str__()
+    
+    def __eq__(self, articolo_confronto):
+        if not isinstance(articolo_confronto, Prodotto): #isinstance serve a verificare che l'oggetto inserito sia della classe assegnata
+            return False
+        return self.articolo == articolo_confronto.articolo and self.prezzo == articolo_confronto.prezzo
+    
+""" Classe ShoppingCart
+Costruttore: Inizializza una lista vuota di prodotti.
+Metodi:
+add_product: Aggiunge un prodotto al carrello.
+remove_product: Rimuove un prodotto.
+total_price: Calcola il totale dei prezzi dei prodotti.
+__len__: Restituisce il numero dei prodotti.
+__str__: Rappresentazione leggibile del carrello.
+__add__: Unisce due carrelli creando un nuovo carrello  """
+    
+class Carrello():
+    def __init__(self, *prodotti):
+        self.prodotti = list(prodotti)
+        
+    def aggiungi_prodotto(self, prodotto):
+        if not isinstance(prodotto, Prodotto):
+            print("Devi aggiungere un prodotto")
+        return self.prodotti.append(prodotto)
+    
+    def rimuovi_prodotto(self, prodotto):
+        for prodotto in self.prodotti:
+            self.prodotti.remove(prodotto)
+    
+    def prezzo_totale(self):
+        somma = 0
+        for p in self.prodotti:
+            somma += p.prezzo
+        return somma
+   
+    def __len__(self):
+        return len(self.prodotti)
+    
+    def __str__(self):
+        prodotti_str = ", ".join(str(p) for p in self.prodotti)
+        return f"Prodotti nel carrello: {prodotti_str}, prezzo totale: {self.prezzo_totale()}"
+
+    """ def __str__(self):
+        return f'Prodotti nel carrello: {self.prodotti}, prezzo totale: {self.prezzo_totale()}' """
+    
+    def __add__(self, altro_carrello):
+        return Carrello(*self.prodotti, *altro_carrello.prodotti)
+    
+    # Demo d’uso
+if __name__ == "__main__":
+    # creiamo alcuni prodotti
+    penna = Prodotto("Penna", 1.50)
+    quaderno = Prodotto("Quaderno", 2.30)
+    zaino = Prodotto("Zaino", 25.00)
+
+    # creiamo due carrelli
+    cart1 = Carrello()
+    cart2 = Carrello()
+
+    # aggiungiamo prodotti
+    cart1.aggiungi_prodotto(penna)
+    cart1.aggiungi_prodotto(quaderno)
+    cart2.aggiungi_prodotto(zaino)
+
+    # stampiamo i carrelli
+    print("=== Carrello 1 ===")
+    print(cart1)
+    print("\n=== Carrello 2 ===")
+    print(cart2)
+
+    # uniamo i carrelli con l'overloading di +
+    merged = cart1 + cart2
+    print("\n=== Carrello Unito ===")
+    print(merged)
+
+    # rimuoviamo un prodotto
+    cart1.rimuovi_prodotto(penna)
+    print("\n=== Carrello 1 dopo rimozione ===")
+    print(cart1)
+
+    # lunghezza totale
+    print("\nNumero di articoli in merged:", len(merged))
+
+    
