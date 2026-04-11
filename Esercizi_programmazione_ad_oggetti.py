@@ -1065,3 +1065,84 @@ def avvia_diario():
             print("Scelta non valida.")
 
 avvia_diario() """
+
+#· Crea una classe Appunti che salvi in un file ogni riga scritta dall'utente.
+#· Aggiungi un metodo mostra() che stampi il contenuto del file.
+#· Estendi la classe con un metodo cancella() che svuoti il file.
+
+""" import os
+
+class Appunti():
+    def __init__(self):
+        print("Appunti")
+
+        percorso = input("Inserisci il percorso completo del file (oppure premi invio per usare 'appunti.txt'): ")
+
+        if percorso.strip() == "":
+            self.nome_file = "appunti.txt"
+        else:
+            if os.path.isdir(percorso):
+                print("Hai inserito una cartella, non un file.")
+                nome = input("Inserisci il nome del file (es: appunti.txt): ")
+                self.nome_file = os.path.join(percorso, nome)
+            else:
+                self.nome_file = percorso
+
+        if not os.path.exists(self.nome_file):
+            print(f"Creo il file '{self.nome_file}'...")
+            with open(self.nome_file, "w") as f:
+                f.write("=== Appunti ===\n\n")
+                
+    def scrivi(self, appunti):
+        with open(self.nome_file, 'a') as f:
+            f.write(appunti + "\n")
+    
+    def mostra_appunti(self):
+        with open(self.nome_file, "r") as f:
+            return f.read()
+    
+    def cancella(self):
+        with open(self.nome_file, "w") as f:
+            f.write("")
+        print("Appunti svuotati.")
+
+            
+def menu():
+    appunti=Appunti()
+    
+    while True:
+        print("\n******** Menu ********")
+        print("1 - Scrivi appunti")
+        print("2 - Leggi appunti")
+        print("3 - Svuota appunti")
+        print("0 - Esci")
+        scelta = input("Scegli un'opzione: ")
+        
+        if scelta == "1":
+            print("\nScrivi tutto quello che vuoi.")
+            print("Premi 0 per tornare al menu.\n")
+
+            while True:
+                testo = input("> ")
+
+                if testo == "0":
+                    break
+
+                appunti.scrivi(testo)
+
+        elif scelta == "2":
+            print("\n******** CONTENUTO ********\n")
+            print(appunti.mostra_appunti())
+
+        elif scelta == "3":
+            print(appunti.cancella())
+            
+        elif scelta == "0":
+            print("Hai chiuso il diario. A presto.")
+            break
+
+        else:
+            print("Scelta non valida.")
+
+menu()    """        
+    
