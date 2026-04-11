@@ -867,3 +867,69 @@ class Banca():
 b=Banca(100)
 b.preleva(80) """
 
+""" Organizza le tue eccezioni sotto una classe base ErroreScuola o
+ErroreMagazzino. """
+""" Crea una classe studente con attributo età.
+· Se l'età è negativa, solleva EtàNonValidaError. """
+
+class ErroreScuola(Exception):
+    pass
+
+class EtàNonValidaError(ErroreScuola):
+    def __init__(self, età):
+        super().__init__(f'{età} non è un età valida')
+        
+class Studente():
+    def __init__(self, nome, età):
+        if età<0:
+            raise EtàNonValidaError
+        self.nome=nome
+        self.età=età
+
+""" Crea una classe Magazzino con metodo rimuovi_prodotto(nome, quantità).
+· Se non ci sono abbastanza pezzi, solleva ProdottoEsauritoError. """
+
+class ErroreMagazzino(Exception):
+    pass
+
+class ProdottoEsauritoError(ErroreMagazzino):
+    def __init__(self, *prodotti):
+        self.prodotti = prodotti
+        nomi = ", ".join(p.nome for p in prodotti)
+        super().__init__(f"I seguenti prodotti sono esauriti: {nomi}")
+
+
+class Magazzino:
+    def __init__(self, *prodotti):
+        self.prodotti = list(prodotti)
+
+    def aggiungi_prodotto(self, prodotto):
+        if not isinstance(prodotto, Prodotto):
+            raise TypeError("Devi aggiungere un oggetto di tipo Prodotto")
+        self.prodotti.append(prodotto)
+
+    def rimuovi_prodotto(self, prodotto):
+        if prodotto not in self.prodotti:
+            raise ProdottoEsauritoError(prodotto)
+
+        self.prodotti.remove(prodotto)
+        
+class Prodotto:
+    def __init__(self, nome):
+        self.nome = nome
+
+    def __repr__(self):
+        return f"Prodotto({self.nome})"
+
+
+p1 = Prodotto("Pane")
+p2 = Prodotto("Latte")
+
+mag = Magazzino(p1)
+
+try:
+    mag.rimuovi_prodotto(p2)
+except ProdottoEsauritoError as e:
+    print(e)
+
+
