@@ -723,7 +723,7 @@ Metodi speciali:
 __str__: Rappresentazione leggibile del prodotto.
 __eq__: Confronto tra prodotti per nome e prezzo. """
 
-class Prodotto():
+""" class Prodotto():
     def __init__(self, articolo, prezzo):
         self.articolo = articolo
         self.prezzo = prezzo
@@ -737,7 +737,7 @@ class Prodotto():
     def __eq__(self, articolo_confronto):
         if not isinstance(articolo_confronto, Prodotto): #isinstance serve a verificare che l'oggetto inserito sia della classe assegnata
             return False
-        return self.articolo == articolo_confronto.articolo and self.prezzo == articolo_confronto.prezzo
+        return self.articolo == articolo_confronto.articolo and self.prezzo == articolo_confronto.prezzo """
     
 """ Classe ShoppingCart
 Costruttore: Inizializza una lista vuota di prodotti.
@@ -872,7 +872,7 @@ ErroreMagazzino. """
 """ Crea una classe studente con attributo età.
 · Se l'età è negativa, solleva EtàNonValidaError. """
 
-class ErroreScuola(Exception):
+""" class ErroreScuola(Exception):
     pass
 
 class EtàNonValidaError(ErroreScuola):
@@ -884,12 +884,12 @@ class Studente():
         if età<0:
             raise EtàNonValidaError
         self.nome=nome
-        self.età=età
+        self.età=età """
 
 """ Crea una classe Magazzino con metodo rimuovi_prodotto(nome, quantità).
 · Se non ci sono abbastanza pezzi, solleva ProdottoEsauritoError. """
 
-class ErroreMagazzino(Exception):
+""" class ErroreMagazzino(Exception):
     pass
 
 class ProdottoEsauritoError(ErroreMagazzino):
@@ -932,4 +932,136 @@ try:
 except ProdottoEsauritoError as e:
     print(e)
 
+ """
+ 
+ #Input/Output
+#· Crea una classe Studente che chieda all'utente nome ed età e abbia un metodo presentati().
+#· Aggiungi a Studente un metodo _str_ che restituisca una stringa leggibile.
+#· Crea una classe Diario che salvi su file un messaggio passato dall'utente.
+#· (Facoltativo) Aggiungi un metodo che legga dal file e stampi i messaggi.
 
+""" class EtàNonValidaError(Exception):
+    def __init__(self, età):
+        super().__init__(f"{età} non è un'età valida")
+
+
+class Studente:
+    def __init__(self):
+        self.nome = input("Inserisci il tuo nome: ")
+        self.età = input("Inserisci la tua età: ")
+        
+    @property
+    def nome(self):
+        return self._nome
+
+    @nome.setter
+    def nome(self, nuovo_nome):
+        if not isinstance(nuovo_nome, str) or nuovo_nome.strip() == "":
+            raise ValueError("Il nome deve essere una stringa non vuota")
+        self._nome = nuovo_nome
+
+    @property
+    def età(self):
+        return self._età
+
+    @età.setter
+    def età(self, nuova_età):
+        try:
+            nuova_età = int(nuova_età)
+            if nuova_età < 6:
+                raise EtàNonValidaError(nuova_età)
+            self._età = nuova_età
+        except ValueError:
+            raise EtàNonValidaError(nuova_età)
+
+    def __str__(self):
+        return f"Ciao! Tu sei {self._nome} ed hai {self._età} anni"
+
+def menu():
+    print('******** Album di scuola v.1.0 **************')
+    while True:
+        scelta = int(input('Premi 1 per avviare il programma \n'
+                           'o premi 0 per uscire: '))
+
+        if scelta == 1:
+            try:
+                s = Studente() 
+                print(s)
+            except Exception as e:
+                print("Errore:", e)
+
+        elif scelta == 0:
+            break
+        else:
+            print('Inserisci una scelta valida')
+
+menu() """
+        
+""" import os
+
+class Diario:
+    def __init__(self):
+        print("Benvenuto nel tuo diario personale.")
+
+        percorso = input("Inserisci il percorso completo del file (oppure premi invio per usare 'diario.txt'): ")
+
+        if percorso.strip() == "":
+            self.nome_file = "diario.txt"
+        else:
+            if os.path.isdir(percorso):
+                print("Hai inserito una cartella, non un file.")
+                nome = input("Inserisci il nome del file (es: diario.txt): ")
+                self.nome_file = os.path.join(percorso, nome)
+            else:
+                self.nome_file = percorso
+
+        # Creazione file se non esiste
+        if not os.path.exists(self.nome_file):
+            print(f"Creo il file '{self.nome_file}'...")
+            with open(self.nome_file, "w") as f:
+                f.write("=== Diario Personale ===\n\n")
+
+    def scrivi(self, messaggio):
+        with open(self.nome_file, "a") as f:
+            f.write(messaggio + "\n")
+
+    def leggi(self):
+        with open(self.nome_file, "r") as f:
+            contenuto = f.read()
+        return contenuto
+
+
+def avvia_diario():
+    diario = Diario()
+
+    while True:
+        print("\n******** MENU DIARIO ********")
+        print("1 - Scrivi nel diario")
+        print("2 - Leggi il diario")
+        print("0 - Esci")
+        scelta = input("Scegli un'opzione: ")
+
+        if scelta == "1":
+            print("\nScrivi tutto quello che vuoi.")
+            print("Premi 0 per tornare al menu.\n")
+
+            while True:
+                testo = input("> ")
+
+                if testo == "0":
+                    break
+
+                diario.scrivi(testo)
+
+        elif scelta == "2":
+            print("\n******** CONTENUTO DEL DIARIO ********\n")
+            print(diario.leggi())
+
+        elif scelta == "0":
+            print("Hai chiuso il diario. A presto.")
+            break
+
+        else:
+            print("Scelta non valida.")
+
+avvia_diario() """
