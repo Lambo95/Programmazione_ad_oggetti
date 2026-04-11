@@ -749,7 +749,7 @@ __len__: Restituisce il numero dei prodotti.
 __str__: Rappresentazione leggibile del carrello.
 __add__: Unisce due carrelli creando un nuovo carrello  """
     
-class Carrello():
+""" class Carrello():
     def __init__(self, *prodotti):
         self.prodotti = list(prodotti)
         
@@ -775,8 +775,8 @@ class Carrello():
         prodotti_str = ", ".join(str(p) for p in self.prodotti)
         return f"Prodotti nel carrello: {prodotti_str}, prezzo totale: {self.prezzo_totale()}"
 
-    """ def __str__(self):
-        return f'Prodotti nel carrello: {self.prodotti}, prezzo totale: {self.prezzo_totale()}' """
+    def __str__(self):
+        return f'Prodotti nel carrello: {self.prodotti}, prezzo totale: {self.prezzo_totale()}' 
     
     def __add__(self, altro_carrello):
         return Carrello(*self.prodotti, *altro_carrello.prodotti)
@@ -814,6 +814,56 @@ if __name__ == "__main__":
     print(cart1)
 
     # lunghezza totale
-    print("\nNumero di articoli in merged:", len(merged))
+    print("\nNumero di articoli in merged:", len(merged)) """
 
+#Gestione delle eccezzioni    
+#· Crea una classe Divisione con un metodo dividi(a, b) che gestisca la divisione per zero.
+
+""" class Divisione():
+    def __init__(self, dividendo, divisore):
+        self.dividendo=dividendo
+        self.divisore=divisore
     
+    def dividi(self):
+        try:
+            return self.dividendo/self.divisore
+        except ZeroDivisionError:
+            return 'Impossibile dividere per 0'
+        
+div=Divisione(10,0)
+print(div.dividi())      """    
+
+#· Crea una classe Persona che sollevi un ValueError se l'età inserita è negativa.
+
+""" class Persona():
+    def __init__(self, nome, età):
+        if età<0:
+            raise ValueError("L'età non può essere negativa")
+        self.nome=nome
+        self.età=età
+        
+p=Persona("Paolo", -2)    
+print(p) """
+
+#· Crea una classe Banca con metodo preleva(). Se il saldo non basta, solleva un'eccezione personalizzata.
+""" class SaldoInsufficiente(Exception):
+    def __init__(self):
+        pass
+    
+    def __str__(self):
+        return "Saldo insufficiente"
+
+
+class Banca():
+    def __init__(self, saldo):
+        self.saldo=saldo
+    
+    def preleva(self, importo):
+        if importo>self.saldo:
+            raise SaldoInsufficiente()
+        self.saldo -= importo
+        print(self.saldo)
+       
+b=Banca(100)
+b.preleva(80) """
+
