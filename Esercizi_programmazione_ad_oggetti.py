@@ -1146,3 +1146,70 @@ def menu():
 
 menu()    """        
     
+#. Crea un file libri.csv con colonne: titolo, autore, anno.
+#· Scrivi una classe GestoreLibri che legga il file e stampi i titoli.
+#· Aggiungi un metodo che stampi solo i libri di un certo autore.
+
+import csv
+import os
+
+class GestoreLibri:
+    def __init__(self):
+        percorso = input("Inserisci il percorso completo del file: ")
+        try:
+            if os.path.isdir(percorso):
+                print("Hai inserito una cartella, non un file.")
+                nome = input("Inserisci il nome del file (es: libri.csv): ")
+                self.nome_file = os.path.join(percorso, nome)
+            else:
+                self.nome_file = percorso
+        except Exception as e:
+            print(e)
+
+    def leggi(self):
+        with open(self.nome_file, 'r') as f:
+            return list(csv.DictReader(f))
+
+    def cercaLibroPerAutore(self):
+        autore = input("Inserisci l'autore: ").strip().lower()
+        risultati = []
+
+        for libro in self.leggi():
+            if libro["autore"].lower() == autore:
+                risultati.append(libro)
+
+        return risultati
+
+    def mostraMenu(self):
+        while True:
+            print("\n=== MENU GESTIONE LIBRI ===")
+            print("1) Leggi tutti i libri")
+            print("2) Cerca libri per autore")
+            print("3) Esci")
+
+            scelta = input("Seleziona un'opzione: ")
+
+            if scelta == "1":
+                libri = self.leggi()
+                print("\n--- LIBRI PRESENTI NEL FILE ---")
+                for libro in libri:
+                    print(f"{libro['titolo']} - {libro['autore']} ({libro['anno']})")
+
+            elif scelta == "2":
+                risultati = self.cercaLibroPerAutore()
+                if risultati:
+                    print("\n--- RISULTATI DELLA RICERCA ---")
+                    for libro in risultati:
+                        print(f"{libro['titolo']} - {libro['autore']} ({libro['anno']})")
+                else:
+                    print("Nessun libro trovato per questo autore.")
+
+            elif scelta == "3":
+                print("Uscita dal programma.")
+                break
+
+            else:
+                print("Scelta non valida. Riprova.")
+      
+g = GestoreLibri()
+g.mostraMenu()
